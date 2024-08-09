@@ -8,6 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint . --max-warnings 0 --report-unused-disable-directives",
     "lint:fix": "npm run lint -- --fix",
+    "test": "vitest",
+    "test-coverage": "vitest --coverage",
     "preview": "vite preview",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
