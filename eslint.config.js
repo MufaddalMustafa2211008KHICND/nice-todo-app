@@ -24,6 +24,7 @@ const compat = new FlatCompat({
 export default tseslint.config(
   ...compat.config({
     extends: ['airbnb', 'airbnb-typescript', 'airbnb/hooks'],
+    ignorePatterns: ['postcss.config.js', 'tailwind.config.js'],
     parserOptions: {
       project: './tsconfig.app.json',
     },
@@ -52,6 +53,10 @@ export default tseslint.config(
   {
     rules: {
       'react/react-in-jsx-scope': 'off',
+      'import/extensions': 'off',
+      'react/require-default-props': 'off',
+      'react/jsx-props-no-spreading': 'off',
+      'react-refresh/only-export-components': 'off',
     },
   }
 )
