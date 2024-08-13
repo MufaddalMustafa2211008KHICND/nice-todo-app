@@ -1,10 +1,10 @@
 import './App.css'
-import { Button } from './components/ui/button'
+import Login from './components/login/Login'
 
 function App() {
   return (
     <div>
-      <Button>hello world</Button>
+      <Login />
     </div>
   )
 }
