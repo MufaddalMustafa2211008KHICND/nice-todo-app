@@ -12,8 +12,7 @@
     "test-coverage": "vitest --coverage",
     "preview": "vite preview",
     "format": "prettier . --write",
-    "format:check": "prettier . --check",
-    "prepare": "husky install"
+    "format:check": "prettier . --check"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
