@@ -1,17 +1,13 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App'
 import './index.css'
 import './globals.css'
-import {
-  BrowserRouter as Router,
-} from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import { initializeApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth'
+import App from './App'
 
 const firebaseConfig = {
-  apiKey:'AIzaSyDKe6SGEliK_wPKIua1_eO5VMXNDRG8iro',
+  apiKey: 'AIzaSyDKe6SGEliK_wPKIua1_eO5VMXNDRG8iro',
   authDomain: 'authentication-84483.firebaseapp.com',
   projectId: 'authentication-84483',
   storageBucket: 'authentication-84483.appspot.com',

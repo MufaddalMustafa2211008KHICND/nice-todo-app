@@ -1,4 +1,12 @@
 import { useState } from 'react'
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from 'firebase/auth'
+import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -11,17 +19,6 @@ import {
 import { Input } from '@/components/ui/input'
 import Label from '@/components/ui/label'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-} from 'firebase/auth'
-
-import { Link } from "react-router-dom";
-
-import { useNavigate } from 'react-router-dom'
 
 function Login() {
   const [email, setEmail] = useState('')
@@ -67,9 +64,9 @@ function Login() {
         console.log(response.user.uid)
         navigate('/')
       })
-      .catch((error) => {
-        console.log(error)
-        setError(error.message)
+      .catch((err) => {
+        console.log(err)
+        setError(err.message)
         setAuthing(false)
       })
   }
@@ -84,8 +81,8 @@ function Login() {
         console.log(response.user.uid)
         navigate('/')
       })
-      .catch((error) => {
-        console.log(error)
+      .catch((err) => {
+        console.log(err)
         setSignupAuthing(false)
       })
   }
@@ -101,14 +98,14 @@ function Login() {
     setSignupError('')
 
     // use Firebase to create a new user with email and password
-    createUserWithEmailAndPassword(auth,signupMail , signupPassword)
+    createUserWithEmailAndPassword(auth, signupMail, signupPassword)
       .then((response) => {
         console.log(response.user.uid)
         // navigate('/')
       })
-      .catch((error) => {
-        console.log(error)
-        setSignupError(error.message)
+      .catch((err) => {
+        console.log(err)
+        setSignupError(err.message)
         setSignupAuthing(false)
       })
   }
@@ -123,16 +120,14 @@ function Login() {
         <Card>
           <CardHeader>
             <CardTitle>Login</CardTitle>
-            <CardDescription>
-              Add credentials to login
-            </CardDescription>
+            <CardDescription>Add credentials to login</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="space-y-1">
               <Label>Email</Label>
               <Input
                 id="email"
-                type='email'
+                type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -141,7 +136,7 @@ function Login() {
               <Label>Password</Label>
               <Input
                 id="password"
-                type='password'
+                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -150,7 +145,7 @@ function Login() {
           <CardFooter>
             <Button onClick={signInWithEmail}>Sign in with Email</Button>
             <Link to="/forgetPassword">Forget Password</Link>
-              {/* Display error message if there is one */}
+            {/* Display error message if there is one */}
             {error && <div className="text-red-500 mb-4">{error}</div>}
             <Button onClick={signInWithGoogle} disabled={authing}>
               {' '}
@@ -169,19 +164,19 @@ function Login() {
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="space-y-1">
-              <Label htmlFor='email'>Email</Label>
+              <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
-                type='email'
+                type="email"
                 value={signupMail}
                 onChange={(e) => setSignupMail(e.target.value)}
               />
             </div>
             <div className="space-y-1">
-              <Label htmlFor='password'>Password</Label>
+              <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
-                type= 'password'
+                type="password"
                 value={signupPassword}
                 onChange={(e) => setSignupPassword(e.target.value)}
               />

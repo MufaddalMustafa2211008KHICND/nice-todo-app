@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Login from './pages/Login'
@@ -12,8 +11,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path='/forgetPassword' element={<ForgetPassword />} />
-        <Route path='/reset-password' element={<ResetPassword />}/>
+        <Route path="/forgetPassword" element={<ForgetPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         {/* <Route path='/signup' element={<Signup />}></Route> */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
