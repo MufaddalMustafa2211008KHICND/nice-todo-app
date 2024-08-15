@@ -58,6 +58,7 @@ export default tseslint.config(
       'react/jsx-props-no-spreading': 'off',
       'react-refresh/only-export-components': 'off',
       'react/no-unescaped-entities': 'off',
+      'no-console':'off',
     },
   }
 )
