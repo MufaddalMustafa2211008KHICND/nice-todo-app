@@ -1,5 +1,4 @@
-
-function Home (){
+function Home() {
   return (
     <div>
       <h1>Welcome to Nce To Do App</h1>
