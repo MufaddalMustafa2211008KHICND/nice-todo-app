@@ -1,8 +1,8 @@
+import { Home } from "lucide-react";
+import { Route, Routes } from "react-router-dom";
 import ForgetPassword from "@/pages/ForgetPassword";
 import Login from "@/pages/Login";
 import ResetPassword from "@/pages/ResetPassword";
-import { Home } from "lucide-react";
-import { Navigate, Route, Routes } from "react-router-dom";
 import AuthRoute from "./AuthRoute";
 import ErrorPage from "@/pages/ErrorPage";
 

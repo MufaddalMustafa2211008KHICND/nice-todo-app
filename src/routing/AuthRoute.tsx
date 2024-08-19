@@ -1,5 +1,5 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -7,7 +7,7 @@ export interface IAuthRouteProps {
     children: React.ReactNode;
 }
 
-const AuthRoute: React.FunctionComponent<IAuthRouteProps> = (props) =>{
+const AuthRoute: React.FunctionComponent<IAuthRouteProps> =function (props){
     const {children} = props;
     const auth = getAuth()
     const navigate = useNavigate()
