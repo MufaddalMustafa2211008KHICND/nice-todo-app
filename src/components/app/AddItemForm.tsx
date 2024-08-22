@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Alert from '../alert/Alert'
+import Alert from './Alert'
 
 interface AddItemFormProps {
   onAdd: (title: string) => void

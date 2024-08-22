@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useItems } from '@/contexts/crudContext/useItems'
-import AddItemForm from './components/AddItemForm'
-import EditItemForm from './components/EditItemForm'
-import List from './components/List'
-import Alert from './alert/Alert'
+import AddItemForm from '../components/app/AddItemForm'
+import EditItemForm from '../components/app/EditItemForm'
+import List from '../components/app/List'
+import Alert from '../components/app/Alert'
 
 const Home: React.FC = function () {
   const { items, addItem, updateItem, deleteItem } = useItems()

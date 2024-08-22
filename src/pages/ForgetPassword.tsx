@@ -1,7 +1,7 @@
 /* eslint-disable no-alert */
 
 import { sendPasswordResetEmail } from 'firebase/auth'
-import { database } from '../PasswordLoginWithFirebase/FirebaseConfig'
+import { database } from '../configs/FirebaseConfig'
 
 function ForgetPassword() {
   const handleSubmit = async (e: any) => {

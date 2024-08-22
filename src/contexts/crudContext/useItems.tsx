@@ -14,7 +14,7 @@ import {
   deleteDoc,
   doc,
 } from 'firebase/firestore'
-import { firestore } from '@/PasswordLoginWithFirebase/FirebaseConfig'
+import { firestore } from '@/configs/FirebaseConfig'
 
 interface Item {
   id: string
