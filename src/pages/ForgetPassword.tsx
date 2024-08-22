@@ -2,7 +2,6 @@
 
 import { sendPasswordResetEmail } from 'firebase/auth'
 import { database } from '../PasswordLoginWithFirebase/FirebaseConfig'
-import { useState } from 'react'
 
 function ForgetPassword() {
   const handleSubmit = async (e: any) => {

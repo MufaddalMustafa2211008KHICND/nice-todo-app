@@ -4,7 +4,9 @@ import './index.css'
 import './globals.css'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { initializeApp } from 'firebase/app'
+import { getFirestore } from 'firebase/firestore'
 import App from './App'
+import { ItemProvider } from '@/contexts/crudContext/useItems'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDKe6SGEliK_wPKIua1_eO5VMXNDRG8iro',
@@ -15,15 +17,17 @@ const firebaseConfig = {
   appId: '1:1001387320653:web:f3fb70908b2f9f51f3c304',
 }
 
-// Initialize Firebase
-initializeApp(firebaseConfig)
+const app = initializeApp(firebaseConfig)
+
+// eslint-disable-next-line import/prefer-default-export
+export const firestore = getFirestore(app)
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Router>
-      <App />
+      <ItemProvider>
+        <App />
+      </ItemProvider>
     </Router>
   </StrictMode>
 )
-
-// export const database= getAuth(firebaseConfig)
