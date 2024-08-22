@@ -34,7 +34,7 @@ export const ItemProvider: React.FC<ItemProviderProps> = ({ children }) => {
   useEffect(() => {
     const fetchItems = async () => {
       const itemsCollection = collection(firestore, 'items'); 
-      const snapshot = await getDocs(itemsCollection); // Fetch documents
+      const snapshot = await getDocs(itemsCollection); 
       const itemsList = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id } as Item));
       setItems(itemsList);
     };
@@ -67,7 +67,6 @@ export const ItemProvider: React.FC<ItemProviderProps> = ({ children }) => {
       const itemDoc = doc(firestore, 'items', id);
       await updateDoc(itemDoc, updatedItem);
   
-      // Ensure state is updated correctly
       setItems(prevItems => {
         const updatedItems = prevItems.map(item =>
           item.id === id ? { ...item, ...updatedItem } : item
@@ -83,8 +82,8 @@ export const ItemProvider: React.FC<ItemProviderProps> = ({ children }) => {
 
   const deleteItem = async (id: string) => {
     try {
-      const itemDoc = doc(firestore, 'items', id); // Get a reference to the document
-      await deleteDoc(itemDoc); // Delete the document
+      const itemDoc = doc(firestore, 'items', id); 
+      await deleteDoc(itemDoc);
       setItems(prevItems => prevItems.filter(item => item.id !== id));
     } catch (error) {
       console.error('Error deleting document: ', error);
