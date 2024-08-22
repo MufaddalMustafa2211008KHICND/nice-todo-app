@@ -7,7 +7,7 @@ interface ListProps {
   removeItem: (id: string) => void
 }
 
-const List: React.FC<ListProps> = ({ items, editItem, removeItem,  }) => {
+const List: React.FC<ListProps> = function ({ items, editItem, removeItem }) {
   return (
     <div className="grocery-container mt-8">
       {items.map((item) => {
@@ -23,6 +23,7 @@ const List: React.FC<ListProps> = ({ items, editItem, removeItem,  }) => {
             <div className="btn-container flex">
               <button
                 type="button"
+                aria-label={`Edit ${title}`}
                 className="text-green-400 hover:text-green-600 transition duration-300 ease-linear mr-1.5"
                 onClick={() => {
                   console.log(`Edit button clicked for item with id: ${id}`)
@@ -34,6 +35,7 @@ const List: React.FC<ListProps> = ({ items, editItem, removeItem,  }) => {
 
               <button
                 type="button"
+                aria-label={`Remove ${title}`}
                 className="text-red-400 hover:text-red-600 transition duration-300 ease-linear"
                 onClick={() => removeItem(id)}
               >

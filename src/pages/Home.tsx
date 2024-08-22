@@ -5,7 +5,7 @@ import EditItemForm from './components/EditItemForm'
 import List from './components/List'
 import Alert from './alert/Alert'
 
-const Home: React.FC = () => {
+const Home: React.FC = function () {
   const { items, addItem, updateItem, deleteItem } = useItems()
   const [editingItemId, setEditingItemId] = useState<string | null>(null)
   const [alert, setAlert] = useState<{
@@ -17,6 +17,10 @@ const Home: React.FC = () => {
     msg: '',
     type: '',
   })
+
+  const showAlert = (show = false, msg = '', type = '') => {
+    setAlert({ show, msg, type })
+  }
 
   useEffect(() => {
     console.log('Items:', items)
@@ -38,18 +42,10 @@ const Home: React.FC = () => {
     showAlert(true, 'Item deleted successfully', 'danger')
   }
 
-  const handleCancelEdit = () => {
-    setEditingItemId(null)
-  }
-
-  const showAlert = (show = false, msg = '', type = '') => {
-    setAlert({ show, msg, type })
-  }
-
   return (
     <section className="section-center">
       <div className="item-form">
-        <h3 className='font-bold'>Items</h3>
+        <h3 className="font-bold">Items</h3>
         {alert.show && (
           <Alert {...alert} removeAlert={showAlert} list={items} />
         )}
@@ -59,22 +55,19 @@ const Home: React.FC = () => {
               itemId={editingItemId}
               items={items}
               onUpdate={handleUpdateItem}
-              onCancel={handleCancelEdit}
             />
           ) : (
             <AddItemForm onAdd={handleAddItem} />
           )}
         </div>
       </div>
-      <div className='list-container'>
-
-      <List
-        items={items}
-        editItem={(id) => setEditingItemId(id)}
-        removeItem={handleDeleteItem}
-      />
+      <div className="list-container">
+        <List
+          items={items}
+          editItem={(id) => setEditingItemId(id)}
+          removeItem={handleDeleteItem}
+        />
       </div>
-
     </section>
   )
 }

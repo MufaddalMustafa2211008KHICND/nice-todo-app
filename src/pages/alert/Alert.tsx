@@ -1,21 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from 'react'
 
 interface AlertProps {
-  type: string;
-  msg: string;
-  removeAlert: () => void;
-  list: any[];
+  type: string
+  msg: string
+  removeAlert: () => void
+  list: any[]
 }
 
-const Alert: React.FC<AlertProps> = ({ type, msg, removeAlert, list }) => {
+const Alert: React.FC<AlertProps> = function ({
+  type,
+  msg,
+  removeAlert,
+  list,
+}) {
   useEffect(() => {
     const timeout = setTimeout(() => {
-      removeAlert();
-    }, 3000);
-    return () => clearTimeout(timeout);
-  }, [list]);
+      removeAlert()
+    }, 3000)
 
-  return <p className={`alert alert-${type}`}>{msg}</p>;
-};
+    return () => clearTimeout(timeout)
+  }, [removeAlert, list])
+  return <p className={`alert alert-${type}`}>{msg}</p>
+}
 
-export default Alert;
+export default Alert

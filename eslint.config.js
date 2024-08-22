@@ -59,7 +59,7 @@ export default tseslint.config(
       'react-refresh/only-export-components': 'off',
       'react/no-unescaped-entities': 'off',
       'no-console': 'off',
-      'func-names':'off'
+      'func-names': 'off',
     },
   }
 )

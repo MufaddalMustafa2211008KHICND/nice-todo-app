@@ -4,20 +4,18 @@ interface EditItemFormProps {
   itemId: string | null
   items: { id: string; title: string }[]
   onUpdate: (id: string, title: string) => void
-  onCancel: () => void
 }
 
-const EditItemForm: React.FC<EditItemFormProps> = ({
+const EditItemForm: React.FC<EditItemFormProps> = function ({
   itemId,
   items,
   onUpdate,
-  onCancel,
-}) => {
+}) {
   const [title, setTitle] = useState('')
 
   useEffect(() => {
     if (itemId) {
-      const item = items.find((item) => item.id === itemId)
+      const item = items.find((i) => i.id === itemId)
       if (item) {
         setTitle(item.title)
       }
