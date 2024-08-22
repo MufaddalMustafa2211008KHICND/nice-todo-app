@@ -7,6 +7,9 @@ import {
   createUserWithEmailAndPassword,
 } from 'firebase/auth'
 import { Link, useNavigate } from 'react-router-dom'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -19,11 +22,36 @@ import {
 import { Input } from '@/components/ui/input'
 import Label from '@/components/ui/label'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
+
+const LoginSchema = z.object({
+  email: z.string().email('Please enter a valid email address').max(50),
+  password: z
+    .string()
+    .min(8, 'Password must be at least 8 characters long')
+    .max(50),
+})
+
+// for password validation
+// z
+// .string()
+// .min(8)
+// .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
+// .regex(/[a-z]/, 'Password must contain at least one lowercase letter')
+// .regex(/\d/, 'Password must contain at least one number')
+// .regex(/[\W_]/, 'Password must contain at least one special character')
+// .max(50),
 
 function Login() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [authing, setAuthing] = useState(false)
+  const [googleAuthing, setGoogleAuthing] = useState(false)
   const [error, setError] = useState('')
 
   const [signupMail, setSignupMail] = useState('')
@@ -32,13 +60,22 @@ function Login() {
   const [signupError, setSignupError] = useState('')
   const [signupAuthing, setSignupAuthing] = useState(false)
 
+  const loginForm = useForm({
+    resolver: zodResolver(LoginSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  })
+
   // Initialize Firebase authentication and navigation
   const auth = getAuth()
   const navigate = useNavigate()
 
   // Function to handle sign in with google
   const signInWithGoogle = async () => {
-    setAuthing(true)
+    setGoogleAuthing(true)
+    setError('')
 
     // use Firebase to sign in with google
 
@@ -49,17 +86,18 @@ function Login() {
       })
       .catch((err) => {
         console.log(err)
-        setAuthing(false)
+        setError(err.message)
+        setGoogleAuthing(false)
       })
   }
 
   // Funtion to handle sign in with email and password
-  const signInWithEmail = async () => {
+  const signInWithEmail = (data: z.infer<typeof LoginSchema>) => {
     setAuthing(true)
     setError('')
 
     // use Firebase to sign in with email and password
-    signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, data.email, data.password)
       .then((response) => {
         console.log(response.user.uid)
         navigate('/')
@@ -118,40 +156,74 @@ function Login() {
       </TabsList>
       <TabsContent value="login">
         <Card>
-          <CardHeader>
-            <CardTitle>Login</CardTitle>
-            <CardDescription>Add credentials to login</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <div className="space-y-1">
-              <Label>Email</Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="space-y-1">
-              <Label>Password</Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button onClick={signInWithEmail}>Sign in with Email</Button>
-            <Link to="/forgetPassword">Forget Password</Link>
-            {/* Display error message if there is one */}
-            {error && <div className="text-red-500 mb-4">{error}</div>}
-            <Button onClick={signInWithGoogle} disabled={authing}>
-              {' '}
-              Sign in wih Google
-            </Button>
-          </CardFooter>
+          <Form {...loginForm}>
+            <form onSubmit={loginForm.handleSubmit(signInWithEmail)}>
+              <CardHeader>
+                <CardTitle>Login</CardTitle>
+                <CardDescription>Add credentials to login</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <div className="space-y-1">
+                  <FormField
+                    control={loginForm.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            type="email"
+                            placeholder="xyz@gmail.com"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <FormField
+                    control={loginForm.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            type="password"
+                            placeholder="********"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </CardContent>
+              <CardFooter>
+                <div className="w-full flex flex-col gap-y-4 items-center">
+                  <Button type="submit" className="w-full" disabled={authing}>
+                    Sign in
+                  </Button>
+                  or
+                  <Button
+                    onClick={signInWithGoogle}
+                    disabled={googleAuthing}
+                    className="w-full"
+                  >
+                    Sign in wih Google
+                  </Button>
+                  <Button variant="link" className="mt-4" asChild>
+                    <Link to="/forgetPassword">Forgot Password</Link>
+                  </Button>
+                  {/* Display error message if there is one */}
+                  {error && <div className="text-red-500">{error}</div>}
+                </div>
+              </CardFooter>
+            </form>
+          </Form>
         </Card>
       </TabsContent>
       <TabsContent value="signup">
