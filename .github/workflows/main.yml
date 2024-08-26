@@ -26,7 +26,7 @@ jobs:
       run: npm ci
 
     - name: Run eslint
-      run: eslint . --max-warnings 0 --report-unused-disable-directives
+      run: npm run lint
 
     - name: Run prettier to check unformatted files
-      run: prettier . --check
+      run: npm run format:check
